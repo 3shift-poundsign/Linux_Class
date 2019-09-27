@@ -38,4 +38,5 @@ void main()
 	show(a,5);
 	sort(p,5);
 	show(a,5);
+	return;
 }

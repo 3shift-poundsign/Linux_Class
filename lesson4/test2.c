@@ -56,4 +56,5 @@ void main()
 	function1(a,5,false);
 	show(a,5);
 	function2();
+	return;
 }
