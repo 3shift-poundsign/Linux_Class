@@ -34,7 +34,7 @@ PNode CreateList() {
 }
 
 void ShowLink(PNode Header) {
-	PNode P = Header->next;
+	PNode P = Header->next;		// NOT putout first struct data!!
 	if (P == NULL) {
 		printf("LinkList is NULL.\n");
 		return ;
@@ -47,7 +47,22 @@ void ShowLink(PNode Header) {
 	printf("\n");
 }
 
+PNode InsertList(PNode Header, int pos, int data) {
+	int position = 0;
+	PNode P = Header;
+	while( Header!=NULL && position<pos-1){
+		P = P->next;
+		position++;
+	}
+	//printf("Please input the number position: ");
+	//scanf("%d"&pos);
+	PNode Tmp = (PNode)malloc(sizeof(PNode));
+	Tmp->data = data;
+	Tmp->next = P;
+	P->next = Tmp;
 
+	return Header;
+}
 
 int main() {
 	PNode text = CreateList();
