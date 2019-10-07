@@ -1,0 +1,955 @@
+hine:~$ ls
+a.out  Desktop  Documents  Downloads  examples.desktop  hello  hello.c  Music  Pictures  Public  Qt5.5.1  Templates  Videos
+ubuntu@ubuntu-virtual-machine:~$ mkdir lesson2
+ubuntu@ubuntu-virtual-machine:~$ cd lesson2/
+ubuntu@ubuntu-virtual-machine:~/lesson2$ ls
+ubuntu@ubuntu-virtual-machine:~/lesson2$ sudo vi test.c
+[sudo] password for ubuntu: 
+ubuntu@ubuntu-virtual-machine:~/lesson2$ gcc -g test.c -o test
+ubuntu@ubuntu-virtual-machine:~/lesson2$ ls
+test  test.c
+ubuntu@ubuntu-virtual-machine:~/lesson2$ gdb test
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.04) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from test...done.
+(gdb) l
+1	#include<stdio.h>
+2	
+3	int add(int m)
+4	{
+5		int i,n=0;
+6		for(i=1;i<=m;i++)
+7			n+=i;
+8		printf("The sum of 1-%d in add is %d\n",m,n);
+9	}
+10	
+(gdb) l
+11	int main()
+12	{
+13		int i,n=0;
+14		add(50);
+15		for(i=1;i<=50;i++)
+16		{
+17			n+=i;
+18		}
+19		printf("The sum of 1-50 is %d\n",n);
+20		return 0;
+(gdb) l
+21	}
+(gdb) b 6
+Breakpoint 1 at 0x8048418: file test.c, line 6.
+(gdb) info b
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048418 in add at test.c:6
+(gdb) b 19
+Breakpoint 2 at 0x804848a: file test.c, line 19.
+(gdb) info b
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048418 in add at test.c:6
+2       breakpoint     keep y   0x0804848a in main at test.c:19
+(gdb) delete 2
+(gdb) info b
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048418 in add at test.c:6
+(gdb) run 
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 1, add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) n
+Program not restarted.
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 1, add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 in add is 1275
+The sum of 1-50 is 1275
+[Inferior 1 (process 3307) exited normally]
+(gdb) r
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 1, add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 in add is 1275
+The sum of 1-50 is 1275
+[Inferior 1 (process 3308) exited normally]
+(gdb) run 
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 1, add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) p
+passcount           print               printf              pwd                 python-interactive  
+path                print-object        ptype               python              
+(gdb) print n
+$1 = 0
+(gdb) print i
+$2 = -1209967160
+(gdb) $1
+Undefined command: "$1".  Try "help".
+(gdb) show 
+Display all 139 possibilities? (y or n)
+(gdb) show 
+ada print-signatures:  Whether the output of formal and return types for functions in the overloads selection menu is activated is on.
+ada trust-PAD-over-XVS:  Whether an optimization trusting PAD types over XVS types is activated is on.
+agent:  Debugger's willingness to use agent in inferior as a helper is off.
+annotate:  Annotation_level is 0.
+architecture:  The target architecture is set automatically (currently i386)
+args:  Argument list to give program being debugged when it is started is "".
+auto-connect-native-target:  Whether GDB may automatically connect to the native target is on.
+auto-load gdb-scripts:  Auto-loading of canned sequences of commands scripts is on.
+auto-load libthread-db:  Auto-loading of inferior specific libthread_db is on.
+auto-load local-gdbinit:  Auto-loading of .gdbinit script from current directory is on.
+auto-load python-scripts:  Auto-loading of Python scripts is on.
+auto-load safe-path:  List of directories from which it is safe to auto-load files is $debugdir:$datadir/auto-load.
+auto-load scripts-directory:  List of directories from which to load auto-loaded scripts is $debugdir:$datadir/auto-load.
+auto-load-scripts:  Auto-loading of Python scripts is on.
+auto-solib-add:  Autoloading of shared library symbols is on.
+backtrace limit:  An upper bound on the number of backtrace levels is unlimited.
+backtrace past-entry:  Whether backtraces should continue past the entry point of a program is off.
+backtrace past-main:  Whether backtraces should continue past "main" is off.
+basenames-may-differ:  Whether a source file may have multiple base names is off.
+breakpoint always-inserted:  Always inserted breakpoint mode is off.
+breakpoint auto-hw:  Automatic usage of hardware breakpoints is on.
+breakpoint condition-evaluation:  Breakpoint condition evaluation mode is auto (currently host).
+breakpoint pending:  Debugger's behavior regarding pending breakpoints is auto.
+c:  range:  Range checking is "auto; currently off".
+type:  Strict type checking is on.
+can-use-hw-watchpoints:  Debugger's willingness to use watchpoint hardware is 1.
+case-sensitive:  Case sensitivity in name search is "auto; currently on".
+ch:  range:  Range checking is "auto; currently off".
+type:  Strict type checking is on.
+charset:  The host character set is "auto; currently UTF-8".
+The target character set is "auto; currently UTF-8".
+The target wide character set is "auto; currently UTF-32".
+check range:  Range checking is "auto; currently off".
+check type:  Strict type checking is on.
+circular-trace-buffer:  Target's use of circular trace buffer is off.
+code-cache:  Cache use for code accesses is on.
+coerce-float-to-double:  Coercion of floats to doubles when calling functions is on.
+compile-args:  Compile command command-line arguments are "-O0 -gdwarf-4 -fPIE -Wall  -Wno-implicit-function-declaration -Wno-unused-but-set-variable -Wno-unused-variable -fno-stack-protector".
+---Type <return> to continue, or q <return> to quit---q
+Quit
+(gdb) show $1
+Undefined show command: "$1".  Try "help show".
+(gdb) info b
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048418 in add at test.c:6
+	breakpoint already hit 1 time
+(gdb) run 
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 1, add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) print n
+$3 = 0
+(gdb) print i
+$4 = -1209967160
+(gdb) watch n
+Hardware watchpoint 3: n
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) n
+7			n+=i;
+(gdb) nn
+Undefined command: "nn".  Try "help".
+(gdb) n
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 0
+New value = 45
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 45
+New value = 55
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 55
+New value = 66
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 66
+New value = 78
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 78
+New value = 91
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 91
+New value = 105
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 105
+New value = 120
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 120
+New value = 136
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 136
+New value = 153
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 153
+New value = 171
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 171
+New value = 190
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 190
+New value = 210
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 210
+New value = 231
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 231
+New value = 253
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) c
+Continuing.
+
+Hardware watchpoint 3: n
+
+Old value = 253
+New value = 276
+add (m=50) at test.c:6
+6		for(i=1;i<=m;i++)
+(gdb) info b
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048418 in add at test.c:6
+	breakpoint already hit 1 time
+3       hw watchpoint  keep y              n
+	breakpoint already hit 15 times
+(gdb) delete 3
+(gdb) c
+Continuing.
+The sum of 1-50 in add is 1275
+The sum of 1-50 is 1275
+[Inferior 1 (process 3327) exited normally]
+(gdb) q
+ubuntu@ubuntu-virtual-machine:~/lesson2$ 
+
+ubuntu@ubuntu-virtual-machine:~/lesson2$ gdb test 
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.04) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from test...done.
+(gdb) l
+1	#include<stdio.h>
+2	
+3	int add(int m)
+4	{
+5		int i,n=0;
+6		for(i=1;i<=m;i++)
+7			n+=i;
+8		printf("The sum of 1-%d in add is %d\n",m,n);
+9	}
+10	
+(gdb) l
+11	int main()
+12	{
+13		int i,n=0;
+14		add(50);
+15		for(i=1;i<=50;i++)
+16		{
+17			n+=i;
+18		}
+19		printf("The sum of 1-50 is %d\n",n);
+20		return 0;
+(gdb) l
+21	}
+(gdb) tbreak 15
+Temporary breakpoint 1 at 0x8048471: file test.c, line 15.
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+1       breakpoint     del  y   0x08048471 in main at test.c:15
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Temporary breakpoint 1, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3359) exited normally]
+(gdb) c
+The program is not being run.
+(gdb) info breakpoints 
+No breakpoints or watchpoints.
+(gdb) break 15
+Breakpoint 2 at 0x8048471: file test.c, line 15.
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+2       breakpoint     keep y   0x08048471 in main at test.c:15
+(gdb) run 
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 2, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3367) exited normally]
+(gdb) c
+The program is not being run.
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+2       breakpoint     keep y   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+(gdb) clear 15
+Deleted breakpoint 2 
+(gdb) info breakpoints 
+No breakpoints or watchpoints.
+(gdb) break 15 
+Breakpoint 3 at 0x8048471: file test.c, line 15.
+(gdb) disable 15
+No breakpoint number 15.
+(gdb) info 
+"info" must be followed by the name of an info command.
+List of info subcommands:
+
+info address -- Describe where symbol SYM is stored
+info all-registers -- List of all registers and their contents
+info args -- Argument variables of current stack frame
+info auto-load -- Print current status of auto-loaded files
+info auto-load-scripts -- Print the list of automatically loaded Python scripts
+info auxv -- Display the inferior's auxiliary vector
+info bookmarks -- Status of user-settable bookmarks
+info breakpoints -- Status of specified breakpoints (all user-settable breakpoints if no argument)
+info checkpoints -- IDs of currently known checkpoints
+info classes -- All Objective-C classes
+info common -- Print out the values contained in a Fortran COMMON block
+info copying -- Conditions for redistributing copies of GDB
+info dcache -- Print information on the dcache performance
+info display -- Expressions to display when program stops
+info exceptions -- List all Ada exception names
+info extensions -- All filename extensions associated with a source language
+info files -- Names of targets and files being debugged
+info float -- Print the status of the floating point unit
+info frame -- All about selected stack frame
+info frame-filter -- List all registered Python frame-filters
+info functions -- All function names
+info guile -- Prefix command for Guile info displays
+info handle -- What debugger does when program gets various signals
+info inferiors -- IDs of specified inferiors (all inferiors if no argument)
+info line -- Core addresses of the code for a source line
+info locals -- Local variables of current stack frame
+info macro -- Show the definition of MACRO
+info macros -- Show the definitions of all macros at LINESPEC
+info mem -- Memory region attributes
+info os -- Show OS data ARG
+info pretty-printer -- GDB command to list all registered pretty-printers
+info probes -- Show available static probes
+info proc -- Show /proc process information about any running process
+info program -- Execution status of the program
+info record -- Info record options
+info registers -- List of integer registers and their contents
+info scope -- List the variables local to a scope
+---Type <return> to continue, or q <return> to quit---q
+Quit
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+3       breakpoint     keep y   0x08048471 in main at test.c:15
+(gdb) run 
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 3, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3370) exited normally]
+(gdb) disable 3
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+3       breakpoint     keep n   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+The sum of 1-50 is 1275
+[Inferior 1 (process 3371) exited normally]
+(gdb) enable 3
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 3, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3372) exited normally]
+(gdb) awatch n
+No symbol "n" in current context.
+(gdb) run 
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 3, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) awatch n
+Hardware access (read/write) watchpoint 4: n
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 0
+New value = 1
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 1
+New value = 3
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 3
+New value = 6
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 6
+New value = 10
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 10
+New value = 15
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 15
+New value = 21
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 21
+New value = 28
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+
+Hardware access (read/write) watchpoint 4: n
+
+Old value = 28
+New value = 36
+main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+3       breakpoint     keep y   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+4       acc watchpoint keep y              n
+	breakpoint already hit 8 times
+(gdb) delete 4
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+3       breakpoint     keep y   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 3, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3379) exited normally]
+(gdb) q
+ubuntu@ubuntu-virtual-machine:~/lesson2$ 
+
+ubuntu@ubuntu-virtual-machine:~/lesson2$ gdb test
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.04) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from test...done.
+(gdb) l
+1	#include<stdio.h>
+2	
+3	int add(int m)
+4	{
+5		int i,n=0;
+6		for(i=1;i<=m;i++)
+7			n+=i;
+8		printf("The sum of 1-%d in add is %d\n",m,n);
+9	}
+10	
+(gdb) l
+11	int main()
+12	{
+13		int i,n=0;
+14		add(50);
+15		for(i=1;i<=50;i++)
+16		{
+17			n+=i;
+18		}
+19		printf("The sum of 1-50 is %d\n",n);
+20		return 0;
+(gdb) l
+21	}
+(gdb) display printf
+1: printf = {<text variable, no debug info>} 0x80482e0 <printf@plt>
+(gdb) info breakpoints 
+No breakpoints or watchpoints.
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+The sum of 1-50 is 1275
+[Inferior 1 (process 3435) exited normally]
+(gdb) break 15
+Breakpoint 1 at 0x8048471: file test.c, line 15.
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 1, main () at test.c:15
+15		for(i=1;i<=50;i++)
+1: printf = {<text variable, no debug info>} 0xb7e52670 <__printf>
+(gdb) info display 
+Auto-display expressions now in effect:
+Num Enb Expression
+1:   y  printf
+(gdb) delete display 1
+(gdb) info display 
+There are no auto-display expressions now.
+(gdb) display for
+No symbol "for" in current context.
+(gdb) display printf
+2: printf = {<text variable, no debug info>} 0xb7e52670 <__printf>
+(gdb) info display 
+Auto-display expressions now in effect:
+Num Enb Expression
+2:   y  printf
+(gdb) disable display 2
+(gdb) info display 
+Auto-display expressions now in effect:
+Num Enb Expression
+2:   n  printf
+(gdb) enable display 2
+(gdb) info display 
+Auto-display expressions now in effect:
+Num Enb Expression
+2:   y  printf
+(gdb) undisplay display 2
+warning: bad display number at or near 'display 2'
+(gdb) undisplay 2
+No display number 2.
+(gdb) info display 
+There are no auto-display expressions now.
+(gdb) display printf 
+3: printf = {<text variable, no debug info>} 0xb7e52670 <__printf>
+(gdb) info display 
+Auto-display expressions now in effect:
+Num Enb Expression
+3:   y  printf
+(gdb) undisplay 3
+(gdb) info display 
+There are no auto-display expressions now.
+(gdb) whatis n
+type = int
+(gdb) whatis i
+type = int
+(gdb) print n
+$1 = 0
+(gdb) print i
+$2 = -1073746020
+(gdb) print i
+$3 = -1073746020
+(gdb) set n = 15
+"on" or "off" expected.
+(gdb) print n
+$4 = 0
+(gdb) set n=on
+Argument must be preceded by space.
+(gdb) set n = on
+"on" or "off" expected.
+(gdb) print/i a
+Format letter "i" is meaningless in "print" command.
+(gdb) print i a
+A syntax error in expression, near `a'.
+(gdb) print i 
+$5 = -1073746020
+(gdb) print i X 
+A syntax error in expression, near `X'.
+(gdb) print i/X 
+No symbol "X" in current context.
+(gdb) print X 
+No symbol "X" in current context.
+(gdb) print / n X 
+A syntax error in expression, near `X'.
+(gdb) print / n 
+$6 = 0
+(gdb) print/X n 
+No symbol "X" in current context.
+(gdb) print n X 
+A syntax error in expression, near `X'.
+(gdb) show args 
+Argument list to give program being debugged when it is started is "".
+(gdb) set args 
+(gdb) show args 
+Argument list to give program being debugged when it is started is "".
+(gdb) cd ..
+Working directory /home/ubuntu.
+(gdb) ls
+Undefined command: "ls".  Try "help".
+(gdb) cd lesson2/
+Working directory /home/ubuntu/lesson2.
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) 
+Please answer y or n.
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 1, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) c
+Continuing.
+The sum of 1-50 is 1275
+[Inferior 1 (process 3479) exited normally]
+(gdb) finish
+The program is not being run.
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 1, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) finish
+"finish" not meaningful in the outermost frame.
+(gdb) until 16
+main () at test.c:17
+17			n+=i;
+(gdb) s
+15		for(i=1;i<=50;i++)
+(gdb) s
+17			n+=i;
+(gdb) s
+15		for(i=1;i<=50;i++)
+(gdb) n
+17			n+=i;
+(gdb) n
+15		for(i=1;i<=50;i++)
+(gdb) n
+17			n+=i;
+(gdb) watch i
+Hardware watchpoint 2: i
+(gdb) n
+15		for(i=1;i<=50;i++)
+(gdb) n
+17			n+=i;
+(gdb) awatch a
+No symbol "a" in current context.
+(gdb) awatch i
+Hardware access (read/write) watchpoint 3: i
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+2       hw watchpoint  keep y              i
+3       acc watchpoint keep y              i
+(gdb) delete 2
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048471 in main at test.c:15
+	breakpoint already hit 1 time
+3       acc watchpoint keep y              i
+(gdb) n
+15		for(i=1;i<=50;i++)
+(gdb) n
+17			n+=i;
+(gdb) n
+15		for(i=1;i<=50;i++)
+(gdb) n
+17			n+=i;
+(gdb) s
+15		for(i=1;i<=50;i++)
+(gdb) s
+17			n+=i;
+(gdb) return 1
+Make main return now? (y or n) y
+#0  0xb7e21637 in __libc_start_main (main=0x804844c <main>, argc=1, argv=0xbfffef94, init=0x80484b0 <__libc_csu_init>, fini=0x8048510 <__libc_csu_fini>, 
+    rtld_fini=0xb7fea780 <_dl_fini>, stack_end=0xbfffef8c) at ../csu/libc-start.c:291
+291	../csu/libc-start.c: No such file or directory.
+(gdb) c
+Continuing.
+Watchpoint 3 deleted because the program has left the block
+in which its expression is valid.
+[Inferior 1 (process 3482) exited with code 01]
+(gdb) l
+286	in ../csu/libc-start.c
+(gdb) l
+286	in ../csu/libc-start.c
+(gdb) c
+The program is not being run.
+(gdb) l
+286	in ../csu/libc-start.c
+(gdb) pwd
+Working directory /home/ubuntu/lesson2.
+(gdb) run
+Starting program: /home/ubuntu/lesson2/test 
+The sum of 1-50 in add is 1275
+
+Breakpoint 1, main () at test.c:15
+15		for(i=1;i<=50;i++)
+(gdb) l
+10	
+11	int main()
+12	{
+13		int i,n=0;
+14		add(50);
+15		for(i=1;i<=50;i++)
+16		{
+17			n+=i;
+18		}
+19		printf("The sum of 1-50 is %d\n",n);
+(gdb) l
+20		return 0;
+21	}
+(gdb) break 13
+Breakpoint 4 at 0x804845d: file test.c, line 13.
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/ubuntu/lesson2/test 
+
+Breakpoint 4, main () at test.c:13
+13		int i,n=0;
+(gdb) call add
+add                        add_fdes                   add_object                 add_path_state             addmul_1.S                 
+add_alias2                 add_module                 add_pad                    add_to_global              addrinfo                   
+add_alias2.isra.0.part     add_n.S                    add_path                   added_atexit_handler       addseverity                
+add_argless_short_opt      add_name_to_object         add_path.isra.4.constprop  addmntent                  
+(gdb) call add
+add                        add_fdes                   add_object                 add_path_state             addmul_1.S                 
+add_alias2                 add_module                 add_pad                    add_to_global              addrinfo                   
+add_alias2.isra.0.part     add_n.S                    add_path                   added_atexit_handler       addseverity                
+add_argless_short_opt      add_name_to_object         add_path.isra.4.constprop  addmntent                  
+(gdb) call add
+$7 = {int (int)} 0x804840b <add>
+(gdb) info breakpoints 
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x08048471 in main at test.c:15
+4       breakpoint     keep y   0x0804845d in main at test.c:13
+	breakpoint already hit 1 time
+(gdb) info display 
+There are no auto-display expressions now.
+(gdb) print $7
+$8 = {int (int)} 0x804840b <add>
+(gdb) print $8
+$9 = {int (int)} 0x804840b <add>
+(gdb) print $1
+$10 = 0
+(gdb) print $*
+A syntax error in expression, near `'.
+(gdb) print *
+A syntax error in expression, near `'.
+(gdb) info registers 
+eax            0xb7fbcdbc	-1208234564
+ecx            0xbfffef00	-1073746176
+edx            0xbfffef24	-1073746140
+ebx            0x0	0
+esp            0xbfffeed0	0xbfffeed0
+ebp            0xbfffeee8	0xbfffeee8
+esi            0xb7fbb000	-1208242176
+edi            0xb7fbb000	-1208242176
+eip            0x804845d	0x804845d <main+17>
+eflags         0x282	[ SF IF ]
+cs             0x73	115
+ss             0x7b	123
+ds             0x7b	123
+es             0x7b	123
+fs             0x0	0
+gs             0x33	51
+(gdb) info stack 
+#0  main () at test.c:13
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 3493] will be killed.
+
+Quit anyway? (y or n) y
+ubuntu@ubuntu-virtual-machine:~/lesson2$ 
+
