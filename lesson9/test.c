@@ -1,6 +1,6 @@
 #include <stdio.h>
-
 #define NUM 10
+
 int number[NUM] = {23,54,34,65,10,34,45,77,24,22};
 
 int* sort(int *num, int len)
@@ -24,7 +24,7 @@ int* sort(int *num, int len)
 
 void show(int *sorted, int total)
 {
-	int i,j;
+	int i;
 	for(i=0;i<total;i++)
 	{
 		if(i%5 == 0) printf("\n");
