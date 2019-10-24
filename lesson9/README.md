@@ -1,4 +1,4 @@
-#ClassPoint
+# ClassPoint
 
 - test.c 文件内容：
 
