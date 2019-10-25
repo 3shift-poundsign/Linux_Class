@@ -21,7 +21,7 @@ void setmark(struct student* test)
 	while(con < NUM)	// loop for erery struct
 	{
 		int current;
-		for(current=0; current<NUM_OF_MARK; current++)
+		for(current=0; current<NUM_OF_MARK;)
 		{
 			mark = rand()%101;		// mark from 0~100
 			if(mark < 60)			// mark < 60
@@ -30,7 +30,7 @@ void setmark(struct student* test)
 				if(less_than60 > (int)(6*NUM*0.1));	// num of "less than 60" > 10%
 				else
 				{
-					*(((test+(con))->mark)+current) = mark;
+					*(((test+(con))->mark)+(current++)) = mark;
 				}
 			}
 			else if(mark > 90)		// mark > 90
@@ -39,12 +39,12 @@ void setmark(struct student* test)
 				if(more_than90 > (int)(6*NUM*0.1));	// num of "more than 90" > 10%
 				else
 				{
-					*(((test+(con))->mark)+current) = mark;
+					*(((test+(con))->mark)+(current++)) = mark;
 				}
 			}
 			else
 			{
-				*(((test+(con))->mark)+current) = mark;
+				*(((test+(con))->mark)+(current++)) = mark;
 			}
 		}
 		con ++;		// for next struct
