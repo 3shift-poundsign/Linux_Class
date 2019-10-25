@@ -70,6 +70,7 @@ void Count_Total_Score(struct student* test)
 	int con = 0;
 	while(con < NUM_OF_STUDENT)
 	{
+		total = 0 ;		// init total variable
 		int current;
 		for(current=0; current<NUM_OF_MARK; current++)
 		{
