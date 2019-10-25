@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<time.h>
 #include<stdlib.h>
-#define NUM 10
+#define NUM_OF_STUDENT 10
 #define NUM_OF_MARK 6
 
 struct student {
@@ -18,7 +18,7 @@ void setmark(struct student* test)
 	int less_than60 = 0;
 	int more_than90 = 0;
 	srand(time(NULL));
-	while(con < NUM)	// loop for erery struct
+	while(con < NUM_OF_STUDENT)	// loop for erery struct
 	{
 		int current;
 		for(current=0; current<NUM_OF_MARK;)
@@ -27,7 +27,7 @@ void setmark(struct student* test)
 			if(mark < 60)			// mark < 60
 			{
 				less_than60 ++;
-				if(less_than60 > (int)(6*NUM*0.1));	// num of "less than 60" > 10%
+				if(less_than60 > (int)(6*NUM_OF_STUDENT*0.1));	// num of "less than 60" > 10%
 				else
 				{
 					*(((test+(con))->mark)+(current++)) = mark;
@@ -36,7 +36,7 @@ void setmark(struct student* test)
 			else if(mark > 90)		// mark > 90
 			{
 				more_than90 ++;
-				if(more_than90 > (int)(6*NUM*0.1));	// num of "more than 90" > 10%
+				if(more_than90 > (int)(6*NUM_OF_STUDENT*0.1));	// num of "more than 90" > 10%
 				else
 				{
 					*(((test+(con))->mark)+(current++)) = mark;
@@ -55,7 +55,7 @@ void setmark(struct student* test)
 void showmark(struct student* test)
 {
 	int con=0;
-	while(con < NUM)	// loop for every struct
+	while(con < NUM_OF_STUDENT)	// loop for every struct
 	{
 		//printf("mark of student %d is %d \n", con, *(test->mark+(con++)));
 		printf("The marks of student%d is :", con);
@@ -72,7 +72,7 @@ void showmark(struct student* test)
 
 int main()
 {
-	struct student stu[NUM];
+	struct student stu[NUM_OF_STUDENT];
 	setmark(stu);
 	showmark(stu);
 
