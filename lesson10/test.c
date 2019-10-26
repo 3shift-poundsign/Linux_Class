@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#define NUM_OF_STUDENT 3
+#define NUM_OF_STUDENT 5
 #define NUM_OF_MARK 6
 
 struct student {
@@ -237,7 +237,7 @@ void Generate_Random_Name(struct student* test)
 	int con = 0;
 	while(con < NUM_OF_STUDENT)
 	{
-		char *name = Generate_Random_String(5,8);
+		char *name = Generate_Random_String(4,6);
 		strcpy(((test+(con++))->name), name);
 	}
 }
@@ -304,6 +304,143 @@ void Show_Student_ID(struct student *test)
 
 
 
+/*************************************************
+Function: Count_Rank
+Description: Calculate the ranking of every student
+Input: Structure pointer of student *test
+Output: None
+Return: Struct student pointer which sorted by mark.
+Author: ZhangH.J.
+Date: 2019/10/26
+*************************************************/
+struct student* Count_Rank(struct student *test)
+{
+	struct student *p = test;
+	int con = 0;
+	int current;
+	// Begin to sort by mark
+	for(con=0; con<NUM_OF_STUDENT-1; con++)
+	{
+		for(current=0; current<NUM_OF_STUDENT-1-con; current++)
+		{
+			if(((p+(current))->total) < ((p+(current+1))->total))
+			{
+				struct student temp = *(p+(current));
+				*(p+(current)) = *(p+(current+1));
+				*(p+(current+1)) = temp;
+			}
+		}
+	}	// End of sort by mark
+
+	// Begin to Tag rank number
+	for(con=0; con<NUM_OF_STUDENT; con++)
+	{
+		((p+(con))->rank) = con + 1;
+	}	// End of tag
+
+	// Begin to Recovery structure data
+	for(con=0; con<NUM_OF_STUDENT-1; con++)
+    {
+        for(current=0; current<NUM_OF_STUDENT-1-con; current++)
+        {
+            if(((p+(current))->stuid) > ((p+(current+1))->stuid))
+            {
+                struct student temp = *(p+(current));
+                *(p+(current)) = *(p+(current+1));
+                *(p+(current+1)) = temp;
+            }
+        }
+    }   // End of sort by stuid
+
+	return p;
+}
+
+
+
+
+/*************************************************
+Function: Show_Student_Rank
+Description: Display the ranking of every student
+Input: Structure pointer of student *test
+Output: None
+Return: None
+Author: ZhangH.J.
+Date: 2019/10/26
+*************************************************/
+void Show_Student_Rank(struct student* test)
+{
+	int con = 0;
+	while(con < NUM_OF_STUDENT)
+	{
+		printf("The rank of student %d is %d\n", con++, (test+(con))->rank);
+	}
+}
+
+
+
+/*************************************************
+Function: Show_All_Data
+Description: Display All data of every student
+Input: Structure pointer of student *test
+Output: None
+Return: None
+Author: ZhangH.J.
+Date: 2019/10/26
+*************************************************/
+void Show_All_Data(struct student *test)
+{
+	int con = 0;
+	int current;
+	printf("\nStuID\tName\t\tMarks\t\tTotal\tAverage\tRank\n");
+	while(con < NUM_OF_STUDENT)
+	{
+		printf("%d\t%s\t",(test+(con))->stuid, (test+(con))->name);		// Display StudentID and Name
+		for(current=0; current<NUM_OF_MARK; current++)
+		{
+			printf("%d ",*((test+(con))->mark+(current)));				// Display marks
+		}
+		printf("\t%d\t%.2lf\t%d\n", (test+(con))->total, (test+(con))->avg, (test+(con))->rank);		// Display Total Average and Ranking.
+		con ++;		// for next student
+	}
+	printf("\n");	// Split display
+}
+
+
+
+
+/*************************************************
+Function: Show_Data_Sorted_By_Mark
+Description: Show All Data which have sorted by Mark
+Input: Structure pointer of student *test
+Output: All Data sorted by mark
+Return: None
+Author: ZhangH.J.
+Date: 2019/10/26
+*************************************************/
+void Show_Data_Sorted_By_Mark(struct student *test)
+{
+	int con = 0;
+	int current;
+	struct student *p = test;
+	for(con=0; con<NUM_OF_STUDENT-1; con++)
+	{
+		for(current=0; current<NUM_OF_STUDENT-1-con; current++)
+		{
+			if(((p+(current))->total) < ((p+(current+1))->total))
+			{
+				struct student temp = *(p+(current));
+				*(p+(current)) = *(p+(current+1));
+				*(p+(current+1)) = temp;
+			}
+		}
+	}   // End of sort by mark
+	// Begin to print
+	Show_All_Data(p);
+}
+
+
+
+
 int main()
 {
 	struct student stu[NUM_OF_STUDENT];		// Define struct student
@@ -323,9 +460,15 @@ int main()
 	************************************ Test End **********************************/
 
 	Generate_Random_Name(stu);				// Generate Random Name for students
-	Show_Student_Name(stu);							// Display Student's Name
+	Show_Student_Name(stu);					// Display Student's Name
 	Generate_Student_ID(stu);				// Generate student's ID
 	Show_Student_ID(stu);					// Display Student's ID
+
+	Show_Student_Rank(Count_Rank(stu));		// Calculate student's rank and display it
+	Show_TotalAndAvg(stu);					// Display Student's Total and Average mark (just for test)
+
+	Show_All_Data(stu);						// Display All Data of structure	
+	Show_Data_Sorted_By_Mark(stu);			// Display Data which Sorted by Mark
 	return 0;
 }
 
