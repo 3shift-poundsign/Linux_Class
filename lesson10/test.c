@@ -16,7 +16,7 @@ struct student {
 
 
 /*************************************************
-Function: SetMark
+Function: Generate_Student_Mark
 Description: Set struct student's data of marks
 Input: Structure pointer of student *test
 Output: None
@@ -24,7 +24,7 @@ Return: None
 Author: ZhangH.J.
 Date: 2019/10/25
 *************************************************/
-void setmark(struct student* test)
+void Generate_Student_Mark(struct student* test)
 {
 	int mark;
 	int con = 0;
@@ -65,6 +65,7 @@ void setmark(struct student* test)
 }
 
 
+
 /*************************************************
 Function: Count_Total_Scroe
 Description: Calculate Total mark of every student
@@ -89,8 +90,6 @@ void Count_Total_Score(struct student* test)
 		((test+(con++))->total) = total;		// Record data into Struct
 	}
 }
-
-
 
 
 
@@ -120,16 +119,18 @@ void Count_TotalAndAvg(struct student* test)
 	}
 }
 
+
+
 /*************************************************
-Function: ShowMark
+Function: Show_Student_Mark
 Description: Display struct student's data of marks
 Input: Structure pointer of student *test
-Output: None
+Output: Student's Marks
 Return: None
 Author: ZhangH.J.
 Date: 2019/10/25
 *************************************************/
-void showmark(struct student* test)
+void Show_Student_Mark(struct student* test)
 {
 	int con=0;
 	while(con < NUM_OF_STUDENT)	// loop for every struct
@@ -145,6 +146,7 @@ void showmark(struct student* test)
 		con ++;
 	}
 }
+
 
 
 /*************************************************
@@ -168,7 +170,6 @@ void Show_Total_Mark(struct student* test)
 
 
 
-
 /*************************************************
 Function: Show_TotalAndAvg
 Description: Display Total And Average mark of every student
@@ -187,6 +188,7 @@ void Show_TotalAndAvg(struct student* test)
 		con ++;		// loop for next student
 	}
 }
+
 
 
 /*************************************************
@@ -232,15 +234,16 @@ Return: None
 Author: ZhangH.J.
 Date: 2019/10/26
 *************************************************/
-void Generate_Random_Name(struct student* test)
+void Generate_Random_Name(struct student* test, int Min, int Max)
 {
 	int con = 0;
 	while(con < NUM_OF_STUDENT)
 	{
-		char *name = Generate_Random_String(4,6);
+		char *name = Generate_Random_String(Min,Max);
 		strcpy(((test+(con++))->name), name);
 	}
 }
+
 
 
 /*************************************************
@@ -262,6 +265,7 @@ void Show_Student_Name(struct student *test)
 }
 
 
+
 /*************************************************
 Function: Generate_Student_ID
 Description: Generate Student's ID for every student
@@ -280,7 +284,6 @@ void Generate_Student_ID(struct student* test)
 		con ++;
 	}
 }
-
 
 
 
@@ -357,7 +360,6 @@ struct student* Count_Rank(struct student *test)
 
 
 
-
 /*************************************************
 Function: Show_Student_Rank
 Description: Display the ranking of every student
@@ -407,7 +409,6 @@ void Show_All_Data(struct student *test)
 
 
 
-
 /*************************************************
 Function: Show_Data_Sorted_By_Mark
 Description: Show All Data which have sorted by Mark
@@ -440,12 +441,20 @@ void Show_Data_Sorted_By_Mark(struct student *test)
 
 
 
-
+/*************************************************
+Function: main
+Description: Generate Student's ID Marks Name Total&Average ,and display them.
+Input: None
+Output: Student's Data
+Return: zero
+Author: ZhangH.J.
+Date: 2019/10/26
+*************************************************/
 int main()
 {
 	struct student stu[NUM_OF_STUDENT];		// Define struct student
-	setmark(stu);							// Set student's marks
-	showmark(stu);							// Display student's marks
+	Generate_Student_Mark(stu);				// Set student's marks
+	Show_Student_Mark(stu);					// Display student's marks
 	//Count_Total_Score(stu);				// Calculate total marks of every student
 	//Show_Total_Mark(stu);					// Display total marks
 	Count_TotalAndAvg(stu);					// Calculate Total and Average mark of every student
@@ -459,30 +468,19 @@ int main()
 	}
 	************************************ Test End **********************************/
 
-	Generate_Random_Name(stu);				// Generate Random Name for students
+	Generate_Random_Name(stu,4,6);			// Generate Random Student's Name which Length from 4 to 6
 	Show_Student_Name(stu);					// Display Student's Name
+
 	Generate_Student_ID(stu);				// Generate student's ID
 	Show_Student_ID(stu);					// Display Student's ID
 
 	Show_Student_Rank(Count_Rank(stu));		// Calculate student's rank and display it
-	Show_TotalAndAvg(stu);					// Display Student's Total and Average mark (just for test)
+	//Show_TotalAndAvg(stu);				// Display Student's Total and Average mark (just for test)
 
 	Show_All_Data(stu);						// Display All Data of structure	
 	Show_Data_Sorted_By_Mark(stu);			// Display Data which Sorted by Mark
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
