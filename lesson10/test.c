@@ -504,6 +504,8 @@ void Show_Data_Sorted_By_Mark(struct student *test)
 		}
 	}   // End of sort by mark
 */	// Begin to print
+
+	// The above code is equal to function "Sorted_Student_By_Mark".
 	Sorted_Student_By_Mark(test);
 	Show_All_Data(test);
 	Sorted_Student_By_StuID(test);
@@ -511,6 +513,15 @@ void Show_Data_Sorted_By_Mark(struct student *test)
 
 
 
+/*************************************************
+Function: Write_Data_to_File
+Description: Write All Student's Data to File,and append local time.
+Input: Structure pointer of student *test; The File Name of StudentData
+Output: The File Called "FileName".
+Return: None
+Author: ZhangH.J.
+Date: 2019/10/27
+*************************************************/
 void Write_Data_to_File(struct student *test, char* FileName)
 {
     FILE *fp;
@@ -526,25 +537,29 @@ void Write_Data_to_File(struct student *test, char* FileName)
         //fputs("This is testing for fputs...\n", fp);
         int con = 0;
         int current;
-        //printf("\nStuID\tName\t\tMarks\t\tTotal\tAverage\tRank\n");
         fprintf(fp,"\nStuID\tName\t\tMarks\t\t\tTotal\tAverage\tRank\n");
         while(con < NUM_OF_STUDENT)
         {
-            //printf("%d\t%s\t",(test+(con))->stuid, (test+(con))->name);     // Display StudentID and Name
             fprintf(fp,"%d\t\t%s\t",(test+(con))->stuid, (test+(con))->name);     // Display StudentID and Name
 
             for(current=0; current<NUM_OF_MARK; current++)
             {
-                //printf("%d ",*((test+(con))->mark+(current)));              // Display marks
                 fprintf(fp,"%d ",*((test+(con))->mark+(current)));              // Display marks
             }
-            //printf("\t%d\t%.2lf\t%d\n", (test+(con))->total, (test+(con))->avg, (test+(con))->rank);        // Display Total Average and Ranking.
             fprintf(fp,"\t%d\t\t%.2lf\t%d\n", (test+(con))->total, (test+(con))->avg, (test+(con))->rank);        // Display Total Average and Ranking.
             con ++;     // for next student
         }
-        //printf("\n");   // Split display
         fprintf(fp,"\n");   // Split display
-    }
+
+		// The following part used to get local and write time to DataFile
+		time_t tmpcal_ptr;
+		struct tm *tmp_ptr = NULL;
+		time(&tmpcal_ptr);
+		//printf("tmpcal_ptr=%ld\n", tmpcal_ptr);
+		tmp_ptr = localtime(&tmpcal_ptr);
+		fprintf (fp,"The latest Record added in:%d.%d.%d ", (1900+tmp_ptr->tm_year), (1+tmp_ptr->tm_mon), tmp_ptr->tm_mday);
+		fprintf(fp,"%d:%d:%d\n\n", tmp_ptr->tm_hour, tmp_ptr->tm_min, tmp_ptr->tm_sec);
+	}
     fclose(fp);
     printf("Written to file completion (^o^)!\n\n");
 }
@@ -560,7 +575,6 @@ Return: zero
 Author: ZhangH.J.
 Date: 2019/10/26
 *************************************************/
-//struct student stu[NUM_OF_STUDENT];		// Define struct student
 int main()
 {
 	struct student stu[NUM_OF_STUDENT];		// Define struct student
@@ -591,7 +605,7 @@ int main()
 	Show_All_Data(stu);						// Display All Data of structure	
 	Show_Data_Sorted_By_Mark(stu);			// Display Data which Sorted by Mark
 
-	Write_Data_to_File(stu, "StudentData");				// Write Student's Data to file
+	Write_Data_to_File(stu, "StudentData");	// Write Student's Data to file
 	return 0;
 }
 
