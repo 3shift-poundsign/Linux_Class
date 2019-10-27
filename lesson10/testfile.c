@@ -1,4 +1,4 @@
-// Test for file
+// Just test for file
 
 #include <stdio.h>
 #include <stdlib.h>
