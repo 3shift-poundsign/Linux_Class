@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#define NUM_OF_STUDENT 100
+#define NUM_OF_STUDENT 8
 #define NUM_OF_MARK 6
 
 struct student {
