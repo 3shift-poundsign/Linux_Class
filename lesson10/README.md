@@ -28,4 +28,4 @@
 10. 学生信息记录文件 ***StudentData***
 
 # GitHub URL
-> https://www.github.com/ZHJ0125/Linux_Class
+> https://www.github.com/ZHJ0125/Linux_Class/tree/master/lesson10
