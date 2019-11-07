@@ -34,6 +34,7 @@ int main()
 	printf("\n");
 
 	free(p);
+	//free(p);	// free Again will be error!
 	p = NULL;
 	return 0;
 }
