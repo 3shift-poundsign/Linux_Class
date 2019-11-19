@@ -28,7 +28,7 @@ int main()
 	{
 		stu[i].number = i;
 		stu[i].sex = 'M';
-		strcpy(stu[i].name, "test");
+		strcpy(stu[i].name, "TestName");
 		sprintf(temp,"%d",i);		// format conversion from int to char*
 		strcat(stu[i].name, temp);	// Append data into file
 	}
@@ -38,5 +38,6 @@ int main()
 	{
 		fprintf(fp, "%d,%s,%c\n", stu[i].number, stu[i].name, stu[i].sex);
 	}
+	fclose(fp);
 	return 0;
 }
