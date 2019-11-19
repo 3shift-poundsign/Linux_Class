@@ -2,17 +2,16 @@
 #include <stdlib.h>
 
 struct student{
-	char name[10];
 	int num;
-	int age;
-	char addr[15];
+	char name[10];
+	char sex;
 }stu[10];
 
 int main()
 {
 	FILE *fp;
 	int i;
-	if((fp=fopen("Database","rb")) == NULL)
+	if((fp=fopen("Database","r")) == NULL)
 	{
 		printf("Error!\n");
 		exit(0);
@@ -21,7 +20,7 @@ int main()
 	{
 		fseek(fp,i*sizeof(struct student),0);
 		fread(&stu[i],sizeof(struct student),1,fp);
-		printf("%-10s %4d %4d %-15s\n",stu[i].name, stu[i].num, stu[i].age, stu[i].addr);
+		printf("%d %s %d\n", stu[i].num, stu[i].name, stu[i].sex);
 	}
 	fclose(fp);
 	return 0;
