@@ -9,8 +9,10 @@
 
 int main()
 {
+	FILE *fp;
 	int client_fd;
 	int ret;
+	char ch[2];
 	socklen_t addrlen = sizeof(struct sockaddr_in);
 	char buf[N];
 	struct sockaddr_in server_addr;
@@ -26,8 +28,31 @@ int main()
 	server_addr.sin_port = htons(8888);
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
+	if((fp = fopen("./text","r")) == NULL)
+	{
+		perror("fail to open file");
+		return -1;
+	}
+	printf("Open file success\n");
+
+	printf("Send file to server? (Y|N): ");
+	scanf("%s",ch);
+	if(!strcmp(ch,"y") || !(strcmp(ch,"Y")))
+	while(fgets(buf,N,fp) != NULL)
+	{
+		ret = sendto(client_fd,buf,strlen(buf),0,(struct sockaddr*)&server_addr,addrlen);
+		if(ret == -1)
+		{
+			perror("fail to send");
+			return -1;
+		}
+		printf("Send: %s",buf);
+		memset(buf,0,N);
+	}
+
 	while(1)
 	{
+		printf("Please input message:");
 		scanf("%s",buf);
 		ret = sendto(client_fd,buf,strlen(buf),0,(struct sockaddr*)&server_addr,addrlen);
 		if(ret == -1)
