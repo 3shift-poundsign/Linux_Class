@@ -49,6 +49,7 @@ int main()
 		printf("Send: %s",buf);
 		memset(buf,0,N);
 	}
+	fclose(fp);
 
 	while(1)
 	{
